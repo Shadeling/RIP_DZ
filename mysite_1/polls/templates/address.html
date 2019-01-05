@@ -1,0 +1,24 @@
+{%extends "base.html" %}
+{%block head_name%}{{games.name}}{%endblock%}
+{%block title%}{{games.name}}{% endblock %}
+
+{%block body%}
+<div class="jumbotron">
+    <h2 class="text-info">{{games.name}}</h2>
+    <img src="{{games.image.url}}", title="{{game.name}}">
+    <h6 class="text-info">{{games.date|date:"d-m-Y"}}</h6>
+    <p>
+        <span>Жанр: {{game.genre}}</span>
+    </p>
+    <div>
+        <div>Рейтинг:</div>
+        <div style="color: #ffa820">{{games.rating}}</div>
+
+    </div>
+    <div>
+        <span>Платформа:</span>
+        <span>{{games.platform}}</span>
+    </div>
+    <p>Описание: {{games.info|safe|linebreaks}}</p>
+</div>
+{% endblock %}

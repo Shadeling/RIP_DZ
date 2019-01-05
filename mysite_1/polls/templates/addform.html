@@ -1,0 +1,62 @@
+{%extends "base.html" %}
+{%block body%}
+<h1>Добавление игры в список</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="create" method="post" id="games_form">
+    <input type="hidden" name="csrfmiddlewaretoken" value="jyOu3BjOiCWxeBKOqObUBSDWIfVHjMwo9acbjfhYJAXIWd0n95QBgOjqElXrWtZQ">
+<div>
+  <fieldset class="center-block">
+        <div class="form-row field-name">
+                <div>
+                        <label class="required" for="id_name">Название:</label>
+                            <input type="text" name="name" class="vTextField" maxlength="100" required="" id="id_name">
+                </div>
+        </div>
+        <div class="form-row field-platform">
+                <div>
+                        <label class="required" for="id_platform">Платформа:</label>
+                            <input type="text" name="platform" class="vTextField" maxlength="100" required="" id="id_platform">
+                </div>
+        </div>
+        <div class="form-row field-date">
+                <div>
+                        <input type="date" class="form-control" name="date" required="">
+                </div>
+        </div>
+        <div class="form-row field-genre">
+                <div>
+                        <label class="required" for="id_genre">Жанры:</label>
+                            <input type="text" name="genre" class="vTextField" maxlength="100" required="" id="id_genre">
+                </div>
+        </div>
+        <div class="form-row field-rating">
+                <div>
+                        <label class="required" for="id_rating">Рейтинг:</label>
+                            <input type="number" name="rating" class="vIntegerField" required="" id="id_rating">
+                </div>
+        </div>
+        <div class="form-row field-image">
+                <div>
+                        <label class="required" for="id_image">Изображение:</label>
+                            <input type="file" name="image" accept="image/*" required="" id="id_image">
+                </div>
+        </div>
+        <div class="form-row field-info">
+                <div>
+                        <label class="required" for="id_info">Описание:</label>
+                            <textarea name="info" cols="40" rows="10" class="vLargeTextField" required="" id="id_info"></textarea>
+                </div>
+        </div>
+</fieldset>
+
+<div class="submit-row">
+<input type="submit" value="Сохранить" class="default" name="_save">
+</div>
+
+</div>
+</form></div>
+        <br class="clear">
+{% endblock %}

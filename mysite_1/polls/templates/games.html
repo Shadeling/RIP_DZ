@@ -1,0 +1,64 @@
+{%extends "base.html" %}
+{%block head_name%}Игры{%endblock%}
+
+{%block body%}
+<div class="row text-center">
+    {% for game in object_list %}
+    <div class="col-md-3 col-sm-3 col-xs-12 m-1 jumbotron">
+            <a href="/games/{{game.id}}"><h3>{{game.name}}</h3></a>
+                <div class="cover-image-list-game">
+                    <a href="/games/{{game.id}}">
+                        <img class="img-fluid" src="{{game.image.url}}", title="{{game.name}}">
+                    </a>
+                </div>
+                <div class="game-info">
+                        <p class="data-relise">
+                            <span class="title-data-relise">Дата выхода:</span>
+                            <span class="content-data-relise">{{game.date|date:"d-m-Y"}}</span>
+                        </p>
+                    <p class="game-genre">
+                        <span class="genre-label">Жанр:</span>
+
+                                <span class="genre-list">{{game.genre}}</span>
+                    </p>
+                    <div class="game-platform">
+                        <span class="platform-label">Платформа:</span>
+                        <span class="platform-list">{{game.platform}}</span>
+                    </div>
+                </div>
+                <div class="rating-site">
+                    <div class="w-rating">
+                        <div class="rating-label">Рейтинг</div>
+                        <div class="rating-search" style="color: #ffa820">{{game.rating}}</div>
+
+                    </div>
+                    <a href="/games/{{game.id}}">Подробнее</a>
+                </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+</nav aria-label="games">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

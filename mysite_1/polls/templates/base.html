@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block head_name%}{%endblock%}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'games_all' %}">
+            QWE
+        </a>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#addmodal" href="##">Add Game</a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
+            </li>
+            {% endif %}
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Войти</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="##" >Добро пожаловать, {{user.username}} </a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Личная страница</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'exit' %}">Выход</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {%block body %}{%endblock%}
+
+    <div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addmodal" aria-hidden="true">
+        <div class="modal-dialog" role="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавление игры в список</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times</span> </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+
+                    <form enctype="multipart/form-data" action="create" method="post" id="games_form">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="jyOu3BjOiCWxeBKOqObUBSDWIfVHjMwo9acbjfhYJAXIWd0n95QBgOjqElXrWtZQ">
+                    <div class="form-group">
+                      <fieldset class="center-block">
+                            <div class="form-row field-name">
+                                    <div>
+                                            <label class="required" for="id_name">Название:</label>
+                                                <input type="text" name="name" class="vTextField form-control" maxlength="100" required="" id="id_name">
+                                    </div>
+                            </div>
+                            <div class="form-row field-platform">
+                                    <div>
+                                            <label class="required" for="id_platform">Платформа:</label>
+                                                <input type="text" name="platform" class="vTextField form-control" maxlength="100" required="" id="id_platform">
+                                    </div>
+                            </div>
+                            <div class="form-row field-date m-2">
+                                    <div>
+                                            <label class="required" for="id_date">Дата выхода:</label>
+                                                <input type="date" class="form-control" name="date" required="">
+                                    </div>
+                            </div>
+                            <div class="form-row field-genre">
+                                    <div>
+                                            <label class="required" for="id_genre">Жанры:</label>
+                                                <input type="text" name="genre" class="vTextField form-control" maxlength="100" required="" id="id_genre">
+                                    </div>
+                            </div>
+                            <div class="form-row field-rating">
+                                    <div>
+                                            <label class="required" for="id_rating">Рейтинг:</label>
+                                                <input type="number" name="rating" class="vIntegerField form-control" required="" id="id_rating">
+                                    </div>
+                            </div>
+                            <div class="form-row field-image m-4">
+                                    <div>
+                                            <label class="required" for="id_image">Изображение:</label>
+                                                <input type="file" name="image" accept="image/*" required="" id="id_image">
+                                    </div>
+                            </div>
+                            <div class="form-row field-info">
+                                    <div>
+                                            <label class="required" for="id_info">Описание:</label>
+                                                <textarea name="info" cols="40" rows="10" class="vLargeTextField form-control" required="" id="id_info"></textarea>
+                                    </div>
+                            </div>
+                    </fieldset>
+
+                    <div class="submit-row">
+                    <input type="submit" value="Сохранить" class="default" name="_save">
+                    </div>
+
+                    </div>
+                    </form>
+                </div>
+                        <br class="clear">
+                </div>
+        </div>
+    </div>
+</body>
+</html>

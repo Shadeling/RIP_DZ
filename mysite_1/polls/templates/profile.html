@@ -1,0 +1,44 @@
+{%extends "base.html" %}
+{%block head_name%}Про филе{%endblock%}
+{%block body%}
+    <div class="container-fluid">
+        <button type="button" class="btn btn-secondary text-right m-3 text-center" data-toggle="modal" data-target="#changemodal">Изменить данные</button>
+        <div class="jumbotron p-1 text-center">
+            <ul class="list-group">
+              <li class="list-group-item">Имя: {{user.first_name}}</li>
+              <li class="list-group-item">Фамилия: {{user.last_name}}</li>
+              <li class="list-group-item">Email: {{user.email}}</li>
+              <li class="list-group-item">Возраст: {{user.profile.age}}</li>
+              <li class="list-group-item"><img src="{{user.profile.image.url}}"></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+<div class="modal fade" id="changemodal" tabindex="-1" role="dialog" aria-labelledby="changemodal" aria-hidden="true">
+        <div class="modal-dialog" role="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Изменение данных</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times</span> </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+
+                    <form enctype="multipart/form-data" action="profile" method="post">
+                        {% csrf_token %}
+                        {{ user_form.as_p }}
+                        {{ profile_form.as_p }}
+
+                    <div class="submit-row">
+                    <input type="submit" value="Сохранить" class="default" name="_save">
+                    </div>
+
+                    </form>
+                </div>
+                        <br class="clear">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
