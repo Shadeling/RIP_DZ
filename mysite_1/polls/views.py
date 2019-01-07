@@ -14,6 +14,8 @@ from django.views.generic.base import View
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from polls.serializers import *
+from rest_framework import generics
 
 class LogoutView(View):
     def get(self, request):
@@ -88,10 +90,10 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, ('Your profile was successfully updated!'))
+            '''messages.success(request, ('Your profile was successfully updated!'))'''
             return HttpResponseRedirect('profile')
         else:
-            messages.error(request, ('Please correct the error below.'))
+            '''messages.error(request, ('Please correct the error below.'))'''
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
@@ -99,3 +101,16 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+
+class GamesAPIView(generics.ListAPIView):
+    queryset = Games.objects.all()
+    model = Games
+    serializer_class = GamesSerializer
+
+class GameAPIView(generics.RetrieveAPIView):
+    def get(self, *args, **kwargs):
+        self.queryset=Games.objects.filter(id=kwargs['pk']).first()
+        return super(GameAPIView, self).get(self)
+    model = Games
+    serializer_class = GamesSerializer

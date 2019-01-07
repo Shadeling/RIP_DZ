@@ -20,6 +20,7 @@ from django.views.generic import ListView, DetailView
 from polls.models import *
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin', admin.site.urls),
@@ -32,8 +33,9 @@ urlpatterns = [
     path('user/<int:id>', start, name='user'),
     path('', GamesList.as_view(), name='games_all'),
     path('games/<int:id>', GameView.as_view(), name='game'),
-
-    url('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('gamesAPI', GamesAPIView.as_view(), name='author-list'),
+    path('gamesAPI/<int:pk>', GameAPIView.as_view(), name='author'),
 ]
 
 if settings.DEBUG:
